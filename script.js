@@ -9,6 +9,8 @@ function newGrid() {
             const pixel = document.createElement('div');
             pixel.className = 'pixel';
             pixel.addEventListener('mousemove', colorPixel);
+            pixel.addEventListener('touchstart', handleTouchStart);
+            pixel.addEventListener('touchmove', handleTouchMove);
             maincontainer.appendChild(pixel);
         }
     }
@@ -18,6 +20,26 @@ let erase = false;
 
 function colorPixel(event) {
     event.target.style.backgroundColor = erase ? 'white' : 'black';
+}
+
+function handleTouchStart(event) {
+    // Prevent the default touch behavior to avoid scrolling
+    event.preventDefault();
+}
+
+function handleTouchMove(event) {
+    // Prevent the default touch behavior to avoid scrolling
+    event.preventDefault();
+
+    // Get the corresponding mousemove event for touch devices
+    const simulatedMouseEvent = new MouseEvent('mousemove', {
+        bubbles: true,
+        clientX: event.touches[0].clientX,
+        clientY: event.touches[0].clientY,
+    });
+
+    // Dispatch the simulated mousemove event
+    event.target.dispatchEvent(simulatedMouseEvent);
 }
 
 function resetGrid() {

@@ -67,3 +67,14 @@ body {
 #reset:hover, #eraser:hover {
     background-color: #45a049;
 }
+
+/* Media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    #maincontainer {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .feature {
+        margin: 5px;
+    }
+}
