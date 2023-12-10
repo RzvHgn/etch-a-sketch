@@ -56,3 +56,23 @@ function enableErase() {
     const eraseButton = document.getElementById('eraser');
             eraseButton.textContent = erase ? 'Drawing Mode' : 'Eraser Mode';
 }
+
+function pickColor() {
+    drawingColor = prompt('Enter a color (e.g., red, #00ff00):');
+    if (!drawingColor) {
+        drawingColor = 'black'; // Default color
+    }
+}
+
+function toggleMode() {
+    hoverMode = !hoverMode;
+    const toggleModeButton = document.getElementById('toggleModeButton');
+    toggleModeButton.textContent = hoverMode ? 'Toggle Click Mode' : 'Toggle Hover Mode';
+
+    // Remove existing event listeners and add the appropriate one
+    const pixels = document.querySelectorAll('.pixel');
+    pixels.forEach(pixel => {
+        pixel.removeEventListener(hoverMode ? 'click' : 'mousemove', colorPixel);
+        pixel.addEventListener(hoverMode ? 'mousemove' : 'click', colorPixel);
+    });
+}
