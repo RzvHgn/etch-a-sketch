@@ -78,3 +78,8 @@ body {
         margin: 5px;
     }
 }
+
+#eraser.toggled {
+    background-color: #333; /* Change to your desired color */
+    color: #fff; /* Change to your desired text color */
+}
