@@ -55,6 +55,7 @@ function enableErase() {
 function updateColor() {
     const colorPicker = document.getElementById('colorPicker');
     drawingColor = colorPicker.value;
+    console.log('Updated color:', drawingColor);
 }
 
 function toggleMode() {
