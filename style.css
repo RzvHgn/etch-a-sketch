@@ -51,7 +51,7 @@ body {
     border: 1px solid #ccc;
 }
 
-#reset, #eraser {
+#reset, #eraser, #colorPicker, #toggleModeButton {
     background-color: #4CAF50; /* Green */
     color: white;
     border: none;
@@ -79,7 +79,7 @@ body {
     }
 }
 
-#eraser.toggled {
+#eraser.toggled, #toggleMode.toggled{
     background-color: #333; /* Change to your desired color */
     color: #fff; /* Change to your desired text color */
 }

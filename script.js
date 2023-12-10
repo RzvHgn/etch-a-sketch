@@ -52,11 +52,9 @@ function enableErase() {
     eraseButton.textContent = erase ? 'Drawing Mode' : 'Eraser Mode';
 }
 
-function pickColor() {
-    drawingColor = prompt('Enter a color (e.g., red, #00ff00):');
-    if (!drawingColor) {
-        drawingColor = 'black'; // Default color
-    }
+function updateColor() {
+    const colorPicker = document.getElementById('colorPicker');
+    drawingColor = colorPicker.value;
 }
 
 function toggleMode() {
