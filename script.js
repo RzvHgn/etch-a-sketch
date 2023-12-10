@@ -1,3 +1,5 @@
+let hoverMode = true;
+
 document.addEventListener('DOMContentLoaded', newGrid);
 document.getElementById('reset').addEventListener('click', resetGrid);
 document.getElementById('eraser').addEventListener('click', enableErase);
@@ -6,7 +8,6 @@ document.getElementById('toggleModeButton').addEventListener('click', toggleMode
 
 let erase = false;
 let drawingColor = 'black';
-let hoverMode = true;
 
 function newGrid() {
     const maincontainer = document.getElementById('maincontainer');
