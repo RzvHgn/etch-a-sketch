@@ -53,6 +53,6 @@ function resetGrid() {
 
 function enableErase() {
     erase = !erase;
-    const eraseButton = document.getElementById('eraseButton');
+    const eraseButton = document.getElementById('eraser');
             eraseButton.textContent = erase ? 'Drawing Mode' : 'Eraser Mode';
 }
