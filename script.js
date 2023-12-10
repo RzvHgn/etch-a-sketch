@@ -1,30 +1,34 @@
 let hoverMode = true;
 
 document.addEventListener('DOMContentLoaded', () => {
-    newGrid(hoverMode);
+    newGrid();
     document.getElementById('reset').addEventListener('click', resetGrid);
     document.getElementById('eraser').addEventListener('click', enableErase);
-    document.getElementById('colorPicker').addEventListener('change', updateColor);
+    document.getElementById('colorPickerButton').addEventListener('click', openColorPicker);
     document.getElementById('toggleModeButton').addEventListener('click', toggleMode);
 });
 
 let erase = false;
 let drawingColor = 'black';
 
-function newGrid(hoverMode) {
+function newGrid() {
     const maincontainer = document.getElementById('maincontainer');
     for (let i = 0; i < 16; i++) {
         for (let j = 0; j < 16; j++) {
             const pixel = document.createElement('div');
             pixel.className = 'pixel';
-            pixel.addEventListener(hoverMode ? 'mousemove' : 'click', (event) => colorPixel(event, hoverMode));
             maincontainer.appendChild(pixel);
         }
     }
+    refreshEventListeners();
 }
 
-function colorPixel(event, hoverMode) {
-    event.target.style.backgroundColor = erase ? 'white' : drawingColor;
+function colorPixel(event) {
+    if (event.type === 'click' && !hoverMode) {
+        event.target.style.backgroundColor = erase ? 'white' : drawingColor;
+    } else if (event.type === 'mouseover' && hoverMode) {
+        event.target.style.backgroundColor = erase ? 'white' : drawingColor;
+    }
 }
 
 function resetGrid() {
@@ -47,15 +51,29 @@ function updateColor() {
     console.log('Updated color:', drawingColor);
 }
 
-function toggleMode() {
-    hoverMode = !hoverMode;
-    const toggleModeButton = document.getElementById('toggleModeButton');
-    toggleModeButton.textContent = hoverMode ? 'Toggle Click Mode' : 'Toggle Hover Mode';
+function colorPixel(event) {
+    if ((event.type === 'click' && !hoverMode) || (event.type === 'mouseover' && hoverMode)) {
+        event.target.style.backgroundColor = erase ? 'white' : drawingColor;
+    }
+}
 
-    // Remove existing event listeners and add the appropriate one
+function refreshEventListeners() {
+    console.log('Refreshing event listeners...');
+    
     const pixels = document.querySelectorAll('.pixel');
     pixels.forEach(pixel => {
-        pixel.removeEventListener(hoverMode ? 'click' : 'mousemove', (event) => colorPixel(event, hoverMode));
-        pixel.addEventListener(hoverMode ? 'mousemove' : 'click', (event) => colorPixel(event, hoverMode));
+        pixel.removeEventListener('click', colorPixel);
+        pixel.removeEventListener('mouseover', colorPixel);
+
+        pixel.addEventListener(hoverMode ? 'mouseover' : 'click', colorPixel);
     });
+}
+
+function toggleMode() {
+    console.log('Toggling mode...');
+    hoverMode = !hoverMode;
+    console.log('hoverMode is now:', hoverMode);
+    refreshEventListeners();
+    const toggleModeButton = document.getElementById('toggleModeButton');
+    toggleModeButton.textContent = hoverMode ? 'Toggle Click Mode' : 'Toggle Hover Mode';
 }

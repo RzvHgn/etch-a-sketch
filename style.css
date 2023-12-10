@@ -51,7 +51,7 @@ body {
     border: 1px solid #ccc;
 }
 
-#reset, #eraser, #colorPicker, #toggleModeButton {
+#reset, #eraser, #colorPickerButton, #toggleModeButton {
     background-color: #4CAF50; /* Green */
     color: white;
     border: none;
