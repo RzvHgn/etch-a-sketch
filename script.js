@@ -1,7 +1,7 @@
 let hoverMode = true;
 
 document.addEventListener('DOMContentLoaded', () => {
-    newGrid();
+    newGrid(hoverMode);
     document.getElementById('reset').addEventListener('click', resetGrid);
     document.getElementById('eraser').addEventListener('click', enableErase);
     document.getElementById('colorPicker').addEventListener('change', updateColor);
@@ -11,19 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
 let erase = false;
 let drawingColor = 'black';
 
-function newGrid() {
+function newGrid(hoverMode) {
     const maincontainer = document.getElementById('maincontainer');
     for (let i = 0; i < 16; i++) {
         for (let j = 0; j < 16; j++) {
             const pixel = document.createElement('div');
             pixel.className = 'pixel';
-            pixel.addEventListener(hoverMode ? 'mousemove' : 'click', colorPixel);
+            pixel.addEventListener(hoverMode ? 'mousemove' : 'click', (event) => colorPixel(event, hoverMode));
             maincontainer.appendChild(pixel);
         }
     }
 }
 
-function colorPixel(event) {
+function colorPixel(event, hoverMode) {
     event.target.style.backgroundColor = erase ? 'white' : drawingColor;
 }
 
@@ -55,7 +55,7 @@ function toggleMode() {
     // Remove existing event listeners and add the appropriate one
     const pixels = document.querySelectorAll('.pixel');
     pixels.forEach(pixel => {
-        pixel.removeEventListener(hoverMode ? 'click' : 'mousemove', colorPixel);
-        pixel.addEventListener(hoverMode ? 'mousemove' : 'click', colorPixel);
+        pixel.removeEventListener(hoverMode ? 'click' : 'mousemove', (event) => colorPixel(event, hoverMode));
+        pixel.addEventListener(hoverMode ? 'mousemove' : 'click', (event) => colorPixel(event, hoverMode));
     });
 }
