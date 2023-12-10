@@ -1,10 +1,12 @@
 let hoverMode = true;
 
-document.addEventListener('DOMContentLoaded', newGrid);
-document.getElementById('reset').addEventListener('click', resetGrid);
-document.getElementById('eraser').addEventListener('click', enableErase);
-document.getElementById('colorPickerButton').addEventListener('click', pickColor);
-document.getElementById('toggleModeButton').addEventListener('click', toggleMode);
+document.addEventListener('DOMContentLoaded', () => {
+    newGrid();
+    document.getElementById('reset').addEventListener('click', resetGrid);
+    document.getElementById('eraser').addEventListener('click', enableErase);
+    document.getElementById('colorPicker').addEventListener('change', updateColor);
+    document.getElementById('toggleModeButton').addEventListener('click', toggleMode);
+});
 
 let erase = false;
 let drawingColor = 'black';
@@ -23,20 +25,6 @@ function newGrid() {
 
 function colorPixel(event) {
     event.target.style.backgroundColor = erase ? 'white' : drawingColor;
-}
-
-function handleTouchStart(event) {
-    event.preventDefault();
-}
-
-function handleTouchMove(event) {
-    event.preventDefault();
-    const simulatedMouseEvent = new MouseEvent(hoverMode ? 'mousemove' : 'click', {
-        bubbles: true,
-        clientX: event.touches[0].clientX,
-        clientY: event.touches[0].clientY,
-    });
-    event.target.dispatchEvent(simulatedMouseEvent);
 }
 
 function resetGrid() {
